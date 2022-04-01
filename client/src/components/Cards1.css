@@ -1,0 +1,30 @@
+.width {
+  padding: 0px;
+  margin: 0px;
+}
+
+.addressBackgroundColor {
+  background-color: #262626;
+  color: #666666;
+}
+
+.margin {
+  margin: 10px;
+}
+.bbtn{
+  border-radius: 0px;
+  width: 100% !important;
+}
+.cardsGradient {
+  background: linear-gradient(to right, #6cd4d5, #437a9f, #3d89c7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* background-image:  linear-gradient(to right ,#c33764 , #1d2671); */
+}
+
+.gradient {
+  background-image:  linear-gradient(to right ,#f63083, #cb2fa4,  #a32dc5);
+  /* background-image:  linear-gradient(to right ,#c33764 , #1d2671); */
+  width: 90% ;
+  margin:0,  auto;
+}

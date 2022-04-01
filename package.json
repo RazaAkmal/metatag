@@ -1,0 +1,25 @@
+{
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "miniproject",
+  "description": "To test this do the following",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sudofadi/miniProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sudofadi/miniProject/issues"
+  },
+  "homepage": "https://github.com/sudofadi/miniProject#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}

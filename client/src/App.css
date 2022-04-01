@@ -1,0 +1,42 @@
+body {
+  background-color: #000000;
+}
+.h3padding {
+  margin-bottom: 30px;
+}
+.toast{
+  background-image: linear-gradient(to right, #f63083, #cb2fa4, #a32dc5) !important;
+    color: white !important;
+}
+.countMint{
+  color: white;
+  position: absolute;
+  left: 10px;
+  background: grey;
+  padding: 10px;
+  border-radius: 10px;
+  top: 8rem;
+}
+.whiteWrapper{
+  border-radius: 10px;
+}
+.textCOlor{
+ color: #FC79FF;
+
+}
+.textCOlor2{
+  color:   #FFF279;
+
+}
+.bgCover{
+  background: url(./components/minproject.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+.MuiAlert-standardError{
+  background-color: rgb(253, 237, 237) !important;
+}
+.MuiAlert-standardError .MuiAlert-icon{
+  color: #F06360 !important;
+}

@@ -1,0 +1,15 @@
+.appBarGradient {
+  /* background-image: linear-gradient(to right, #f63083, #cb2fa4, #a32dc5); */
+  background-image: linear-gradient(to right,#FC79FF, #FFF279);
+
+
+  /* background-image:  linear-gradient(to right ,#c33764 , #1d2671); */
+  
+}
+
+.buttonRadius {
+  border-radius: "150px";
+}
+.logo-img{
+  width: 30px;
+}

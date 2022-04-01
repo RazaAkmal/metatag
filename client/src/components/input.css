@@ -1,0 +1,32 @@
+.MuiOutlinedInput-inputAdornedEnd.MuiInputBase-inputAdornedEnd.MuiAutocomplete-inputFocused.MuiAutocomplete-input.MuiOutlinedInput-input.MuiInputBase-input {
+  margin-left: 20px;
+  /* border: none !important; */
+}
+
+
+.MuiAutocomplete-endAdornment {
+  background-color: #262626 !important;
+  border-radius: 50px;
+  color: white !important;
+}
+.MuiOutlinedInput-adornedEnd.MuiInputBase-adornedEnd.MuiInputBase-formControl.MuiInputBase-fullWidth.MuiAutocomplete-inputRoot.MuiOutlinedInput-root.MuiInputBase-root {
+
+  border: none !important;
+  border-radius: 50px;
+}
+
+.MuiOutlinedInput-marginDense.MuiInputBase-marginDense.MuiInputBase-formControl.MuiOutlinedInput-colorSecondary.MuiInputBase-colorSecondary.MuiOutlinedInput-root.MuiInputBase-root {
+
+  border-radius: none;
+}
+
+.makeStyles-root-19 {
+  display: flex;
+  justify-content: center !important;
+  margin-top: 50px !important;
+  margin-bottom: 50px !important;
+}
+
+/* .MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputAdornedEnd.MuiOutlinedInput-inputAdornedEnd {
+  background-color: gray;
+} */

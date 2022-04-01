@@ -1,0 +1,28 @@
+.main {
+  margin-top: 500px;
+}
+
+.MuiPaper-rounded.MuiPaper-outlined.margin.MuiCard-root.MuiPaper-root > div {
+  margin-bottom: -2px;
+}
+
+.MuiAutocomplete-endAdornment {
+  display: none !important;
+}
+
+.MuiButtonBase-root.MuiIconButton-root.MuiAutocomplete-clearIndicator {
+  display: none;
+}
+.MuiAutocomplete-endAdornment {
+  display: flex !important;
+  justify-content: center !important;
+}
+.MuiOutlinedInput-adornedEnd.MuiInputBase-adornedEnd.MuiInputBase-formControl.MuiInputBase-fullWidth.MuiAutocomplete-inputRoot.MuiOutlinedInput-root.MuiInputBase-root {
+  border-radius: none;
+}
+
+.MuiTypography-root.MuiTypography-body1 {
+  display: flex;
+  justify-content: center;
+}
+
