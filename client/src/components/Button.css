@@ -1,8 +1,5 @@
 .gradient {
-  /* background-image: linear-gradient(to right, #f63083, #cb2fa4, hsl(287, 63%, 47%)); */
-  /* background-image:  linear-gradient(to right ,#c33764 , #1d2671); */
   background-image: linear-gradient(to right,#FC79FF, #FFF279) !important;
-
   width: 90%;
   margin: 0, auto;
 }
@@ -12,12 +9,88 @@
 }
 .backdropModal{
   background: white;
-    /* height: 400px; */
-    width: 193px;
+    /* height: 400px;  */
+    width: 300px;
     display: flex;
     padding: 32px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 0px !important;
+    background-color: black;
+}
+.rc-steps-item-active  .loading-dots--dot{
+  color:#FF4361; 
+  background-color:#FF4361!important;
+}
+.rc-steps-item-active .rc-steps-item-title span{
+  color:#FF4361;
+  font-family: 'Russo One';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+text-transform: uppercase;
+}
+.rc-steps-item-active  .rc-steps-item-icon , .rc-steps-item-finish .rc-steps-item-icon{
+  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)!important;
+    border: 0!important;
+    width: 32px!important;
+    height: 32px!important;
+    line-height: 35px!important;
+  font-family: 'Russo One';
+  position: relative
+}
+.rc-steps-item-active  .rc-steps-item-tail:after {
+  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)!important;
+}
+.rc-steps-item-active{
+  opacity: unset!important;
+}
+.backdropModal  .rc-steps-item-title{
+  color: #FF4361!important;
+  font-family: 'Russo One';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-transform: uppercase;
+}
+.rc-steps-item-wait {
+  opacity: 0.4;
+}
+.rc-steps-item-wait .rc-steps-item-icon{
+  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)!important;
+  border: 0!important;
+  width: 32px!important;
+  height: 32px!important;
+  line-height: 35px!important;
+  font-family: 'Russo One';
+  position: relative;
+}
+.rc-steps-item-wait .rc-steps-item-tail:after{
+  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)!important;
+  display: none;
+}
+.rc-steps-vertical .rc-steps-item-content{
+  min-height: 40px!important;
+}
+.rc-steps-item-active .rc-steps-item-icon::before{
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  left: 2px;
+  border-right: 2px solid red;
+  border-bottom: 2px solid red;
+  transform: rotate(327deg);
+  top: 0px;
+}
+
+.rc-steps-vertical .rc-steps-item-tail{
+  display: none;
+}
+.rc-steps-item-finish .rc-steps-item-icon > .rc-steps-icon {
+  color: #ffffff!important;
 }

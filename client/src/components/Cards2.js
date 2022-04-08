@@ -39,12 +39,10 @@ export default function OutlinedCard(props) {
     <Card
       className={classes.root}
       variant="outlined"
-      className="margin"
       style={{
         backgroundColor: "#ffffff",
         paddingBottom: "40px",
         paddingTop: "10px",
-        // paddingBo ttom: "  46  px ",
         borderRadius: "15px",
       }}
     >
@@ -61,7 +59,6 @@ export default function OutlinedCard(props) {
         variant="subtitle1"
         color="primary"
         className="addressBackgroundColor"
-        color="error"
         style={{ padding: "5px", marginBottom: "35px" }}
       >
         {props.addressOfUser ? props.addressOfUser : "Not Connected"}

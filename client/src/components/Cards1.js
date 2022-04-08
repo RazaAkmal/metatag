@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import ComboBox from "./autocomplete";
-import BasicTextFields from "./InputFeild";
+import BasicTextFields from "./autocomplete";
 import Button from "./Button";
 import styles from "./Cards1.css";
 import { blue } from "@material-ui/core/colors";
@@ -13,8 +12,10 @@ import { Stepper } from "./stepper";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-
-    padding: "25px",
+    padding: "50px",
+    background: "linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)",
+    borderRadius: "0px",
+    position: "relative",
   },
   addr: {
     paddingTop: "20px",
@@ -30,66 +31,83 @@ const useStyles = makeStyles({
 });
 
 export default function OutlinedCard(props) {
-  console.log(props.addressOfUser);
   const classes = useStyles();
   const signup = props.userSignUp;
   const [buttonDisable, setButtonDisable] = useState(true);
   const [valid, setValid] = useState(true);
+  const [customerName, setCustomerName] = useState();
 
+  useEffect(() => {
+    const dataFetch = async () => {
+      const response = await fetch(
+        "/api/v1/fetch-usernames"
+      );
+      const json = await response.json();
+      const result = JSON.parse(json);
+      console.log(result);
+      setCustomerName(result, "result ehre");
+    };
+    dataFetch();
+  }, []);
+  console.log(customerName)
   return (
     <Card
       className={classes.root}
       variant="outlined"
-      className="margin"
-      style={{
-        backgroundColor: "black",
- 
-        borderRadius: "0px",
-        padding: "30px 20px",
-
-      }}
     >
-   
-      
-      <div className="whiteWrapper " style={{marginTop: '0px'}}>
-  
-        <ComboBox
-          ress={props.res}
-          customerName={props.customerName}
-          changeSetButtonDisable={(buttonDisable) =>
-            setButtonDisable(buttonDisable)
-          }
-          invalidName={(value) =>
-            setValid(value)
-          }
-          userUsername={(usname) => {
-            props.myUsername(usname)
-          }}
-        />
-      {valid  ? null : <div style={{color: 'red', marginTop: '0'}}>Only Uppercase Characters Allowed</div>}
-      <Button
-        onClick={props.userSignUp}
-        sig={signup}
-        status={props.status}
-        className="bbtn"
-        style={{borderRadius:'0 !important', width: '100%'}}
-        number={props.number}
-        openBackdrop={props.openBackdrop}
-        buttonDisable={buttonDisable}
-      ></Button>
-      
-      <div style={{color: 'white', display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:'20px'}}>
-        <div>Your Eth Address</div>
-        <div style={{padding: '0 10px', borderRadius:'10px', backgroundColor:'white',color:'black'}}>{props.addressOfUser}</div>
 
-        {/* <Typography
-        variant="h4"
-        style={{ paddingBottom: "20px", paddingTop: "10px" }}
-        className="cardsGradient"
-      >
-        {props.addressOfUser}
-      </Typography> */}
-      </div>
+      <div className="whiteWrapper " style={{ marginTop: '0px' }}>
+        {!props.whitelistedError ?
+          <div>
+            {props.numberOfUsers.map((user, index) => (
+              <BasicTextFields
+                showMinusIcnon={index !== 0 && index === props.numberOfUsers.length - 1}
+                setNumberOfUsers={props.setNumberOfUsers}
+                numberOfUsers={props.numberOfUsers}
+                customerName={customerName}
+                inputIndex={index + 1}
+                setErrorMessage={props.setErrorMessage}
+                changeSetButtonDisable={(buttonDisable) =>
+                  setButtonDisable(buttonDisable)
+                }
+                invalidName={(value) =>
+                  setValid(value)
+                }
+                userUsername={(usname) => {
+                  props.myUserName(user, usname)
+                }}
+              />
+            ))}
+
+            {valid ? null : <div style={{ color: 'black', marginTop: '0' }}>Only Uppercase Characters Allowed</div>}
+            {props.errorMessage ? <div style={{ color: 'black', marginTop: '0' }}>{props.errorMessage}</div> : null}
+
+            <Button
+              onClick={props.userSignUp}
+              sig={signup}
+              status={props.status}
+              className="bbtn"
+              style={{ borderRadius: '0 !important', width: '100%' }}
+              number={props.number}
+              openBackdrop={props.openBackdrop}
+              numberOfUsers={props.numberOfUsers}
+              setNumberOfUsers={props.setNumberOfUsers}
+              buttonDisable={buttonDisable}
+            ></Button>
+
+            <div style={{ color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '35px', padding: "0 10px" }}>
+              <div className="card-address">Your Eth Address</div>
+              <div className="address-box" > {props.addressOfUser}</div>
+            </div>
+          </div> :
+          <Typography
+            variant="h3"
+            style={{ color: "white", paddingBottom: "20px", paddingTop: "10px" }}
+          >
+            Please Link Your Whitelisted Account to Use the App Thanks.
+          </Typography>
+        }
+
       </div>
     </Card>
   );

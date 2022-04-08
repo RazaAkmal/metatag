@@ -1,9 +1,5 @@
 .appBarGradient {
-  /* background-image: linear-gradient(to right, #f63083, #cb2fa4, #a32dc5); */
-  background-image: linear-gradient(to right,#FC79FF, #FFF279);
-
-
-  /* background-image:  linear-gradient(to right ,#c33764 , #1d2671); */
+  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%);
   
 }
 
@@ -11,5 +7,19 @@
   border-radius: "150px";
 }
 .logo-img{
-  width: 30px;
+  width: 200px;
+}
+.connected-btn{
+  padding: 16px 32px!important;
+  color: white!important;
+  font-family: 'Russo One';
+font-style: normal!important;
+font-weight: 400!important;
+font-size: 14px!important;
+align-items: center!important;
+align-items: center!important;
+text-align: center!important;
+text-transform: uppercase!important;
+color: #FFFFFF!important;
+border-radius: 0px!important;
 }

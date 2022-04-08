@@ -24,11 +24,37 @@ export default function SimpleBackdrop(props) {
     setOpen(props.openBackdrop);
   };
   return (
+    
     <div>
       <Button
         variant="contained"
         color="primary"
-        className="gradient"
+        className="addmore"
+        onClick={() => {
+          let length = props.numberOfUsers.length
+          let newValue = "secondUserInput"
+          if (length > 1) {
+            newValue = "thirdUserInput"
+          }
+          if (length > 2) {
+            newValue = "fourthUserInput"
+          }
+          if (length > 3) {
+            newValue = "fifthUserInput"
+          }
+          if (length > 4) {
+            return
+          }
+          props.setNumberOfUsers(oldArray => [...oldArray, newValue] );
+        }}
+      >
+        + Register another user
+      </Button>
+      <div className="register-outer">
+      <Button
+        variant="contained"
+        color="primary"
+        className="register"
         disabled={props.buttonDisable}
         onClick={() => {
           handleToggle();
@@ -37,12 +63,12 @@ export default function SimpleBackdrop(props) {
       >
         Register
       </Button>
-   
+      </div>
 
       <Backdrop className={classes.backdrop} open={props.openBackdrop}>
         <div className="backdropModal">
-          <div className="text-left" style={{color: 'black'}}>
-           <p style={{marginTop: '0',textAlign:'left'}}>Your transaction is in Progress.Please Wait...</p>
+          <div className="text-left">
+           <p style={{marginTop: '0',textAlign:'left'}}>Your transaction is in Progress.</p>
 
           </div>
         {/* <CircularProgress style={{color: 'black'}} /> */}

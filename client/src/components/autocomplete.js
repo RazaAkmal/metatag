@@ -21,24 +21,16 @@ const useStyles = makeStyles((theme) => ({
 export default function BasicTextFields({
   changeSetButtonDisable,
   userUsername,
-  invalidName
+  invalidName,
+  showMinusIcnon,
+  setNumberOfUsers,
+  numberOfUsers,
+  customerName,
+  inputIndex,
+  setErrorMessage
 },props) {
   const classes = useStyles();
-  const [customerName, setCustomerName] = useState();
   const [loading, setLoading] = useState(false);
-  
-  useEffect(async () => {
-    const dataFetch = async () => {
-      const response = await fetch(
-        "/api/v1/fetch-usernames"
-      );
-      const json = await response.json();
-      const result = JSON.parse(json);
-      return result;
-    };
-    const username = await dataFetch();
-    setCustomerName(username);
-  }, []);
 
   function getData(val) {
  
@@ -85,9 +77,9 @@ export default function BasicTextFields({
         variant="outlined"
         required= {true}
         onChange={getData}
-        style={{padding: '10px', width: '100%', backgroundColor: 'white', border:'none',margin:'10px 12px'}}
+        style={{padding: '10px', width: '100%', backgroundColor: 'white', border:'none',margin:'10px 12px', height:'35px'}}
         color={"secondary"}
-        placeholder="UserName"
+        placeholder={`USERNAME  ${inputIndex}`}
         InputProps={{
         
           endAdornment: (
@@ -98,10 +90,13 @@ export default function BasicTextFields({
           ),
         }}
       >
-        
-        
-       
          </input>
+        {showMinusIcnon && <span onClick={()=>{
+          let newUsers = numberOfUsers.filter((user, index) => index !== numberOfUsers.length - 1)
+          setNumberOfUsers(newUsers)
+          setErrorMessage(false)
+        }}  className="input-remove">-</span>} 
+         
     </form>
   );
 }
