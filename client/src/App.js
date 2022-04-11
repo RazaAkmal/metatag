@@ -5,28 +5,14 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Navbar from "./components/AppBar";
 import Cards1 from ".//components/Cards1";
-import Cards2 from "./components/Cards2";
 import Button from "@material-ui/core/Button";
 
-import axios from 'axios'
-import styles from "./App.css";
+import "./App.css";
 import SimpleAlerts from "./components/alert"
-import { Stepper } from "./components/stepper";
 import { toast } from 'react-toastify';
-import { Loader } from "./components/loader";
-import Alert from '@material-ui/lab/Alert';
-// import LogoImg from './components/miniLogo.jpg';
 import LogoImg from '../src/images/logo.svg';
 
-// PROD
-//const mintingUrl = 'https://prod-24.uksouth.logic.azure.com:443/workflows/07935d4dbdf1456eaa9893c475dbf501/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=apaV_wgJOF0N45ENhR6b-1yJ-yVUeax7j1dR4OfK450'
-//DEV LOGIC APP
-const regUrl = ''
-const regStatus = '/api/v1/fetch-regstatus'
 const mintingFee = 100000000000000000
-const fetchPinStatus = '/api/v1/fetch-pinstatus'
-const fetchMintStatus = '/api/v1/fetch-mintstatus'
-const mintSomething = '/api/v1/mint-something'
 const App = () => {
   const [web3, setWeb3] = useState();
   const [userAccount, setUserAccount] = useState(undefined);
@@ -48,6 +34,7 @@ const App = () => {
   const [alertState, setAlertState] = useState(false);
   const [msg, setmessage] = useState('')
   const [status, setalertStatus] = useState('')
+  const [disableButton, setDisableButton] = useState('')
   const [accounts, setAccounts] = useState()
   const [whitelistedError, setWhitelistedError] = useState()
   const accountRef = useRef(accounts);
@@ -110,6 +97,19 @@ const App = () => {
           }
         }
         // Time to reload your interface with accounts[0]!
+      });
+      window.ethereum.on('chainChanged', (chainId) => {
+        if (chainId !== '0x4') {
+          setDisableButton(true)
+          toast("Oops, please connect to Rinkeby Network", {
+            hideProgressBar: true,
+            autoClose: false,
+            position: "top-left",
+            className: 'toast'
+          });
+        } else {
+          setDisableButton(false)
+        }
       });
     }
     catch (error) {
@@ -348,12 +348,13 @@ const App = () => {
         >
           {" "}
 
-          <div className="border-area">
+          <div className={disableButton ? "" : "border-area"}>
             <Button
+              disabled={disableButton}
               color="inherit"
               onClick={initWeb3}
               variant="contained"
-              className="appBarGradient connected-btn"
+              className={disableButton ? "connected-btn" : "appBarGradient connected-btn"}
             >
               {buttonTextState}
             </Button>
