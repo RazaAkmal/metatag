@@ -18,15 +18,8 @@ import Alert from '@material-ui/lab/Alert';
 // import LogoImg from './components/miniLogo.jpg';
 import LogoImg from '../src/images/logo.svg';
 
-// PROD
-//const mintingUrl = 'https://prod-24.uksouth.logic.azure.com:443/workflows/07935d4dbdf1456eaa9893c475dbf501/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=apaV_wgJOF0N45ENhR6b-1yJ-yVUeax7j1dR4OfK450'
-//DEV LOGIC APP
-const regUrl = ''
-const regStatus = '/api/v1/fetch-regstatus'
-const mintingFee = 100000000000000000
-const fetchPinStatus = '/api/v1/fetch-pinstatus'
-const fetchMintStatus = '/api/v1/fetch-mintstatus'
-const mintSomething = '/api/v1/mint-something'
+
+const mintingFee = 10000000000000000
 const App = () => {
   const [web3, setWeb3] = useState();
   const [userAccount, setUserAccount] = useState(undefined);
@@ -85,7 +78,7 @@ const App = () => {
       // Get the contract instance.
       const instance = new web3.eth.Contract(
         contractAbi,
-        "0x1De85704E96cEF99358A3558395fAa1d339D9883"
+        "0xe8935C7dE07cFF6A92bE9420B31758403dDC53C5"
       );
       console.log(instance, "Instance")
       setContract(instance);
