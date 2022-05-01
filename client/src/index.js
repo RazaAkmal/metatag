@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import PageRoutes from "./Router";
 import * as serviceWorker from "./serviceWorker";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import green from "@material-ui/core/colors/green";
 import { grey } from "@material-ui/core/colors";
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#000000",
@@ -32,7 +32,7 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App />
+    <PageRoutes />
     <ToastContainer position="top-right"
     autoClose={2000}
     limit={1}
