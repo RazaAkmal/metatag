@@ -3,33 +3,38 @@ import contractAbi from "./contracts/contractAbi.json";
 import getWeb3 from "./getWeb3";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Navbar from "./components/AppBar";
-// import Button from "./components/Button";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
+import { Stepper } from "./components/stepper";
 import "./App.css";
 import SimpleAlerts from "./components/alert"
 import { toast } from 'react-toastify';
 import LogoImg from '../src/images/logo.svg';
+import TickImg from '../src/images/tick.svg';
+import coloredTIck from '../src/images/coloredTIck.svg';
+import Backdrop from "@material-ui/core/Backdrop";
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
 
 const mintingFee = 100000000000000000
 const AirDrop = () => {
+
+  const classes = useStyles();
   const [web3, setWeb3] = useState();
   const [userAccount, setUserAccount] = useState(undefined);
   const [initalPercent, setPercent] = useState(0);
 
   const [initialStatus, setStatus] = useState('wait');
-  const [testSuccess, setTestSuccess] = useState(true)
+  const [testSuccess, setTestSuccess] = useState(false)
   const [contract, setContract] = useState();
   const [buttonTextState, setButtonTextState] = useState();
-  const [apiResponse, setApiResponse] = useState();
   const [openBackdrop, setOpenBackdrop] = useState(false);
-  const [numberOfUsers, setNumberOfUsers] = useState(['firstUserInput']);
-  const [firstUserInput, setFirstUserInput] = useState("testingAPI");
-  const [secondUserInput, setSecondUserInput] = useState("");
-  const [thirdUserInput, setThirdUserInput] = useState("");
-  const [fourthUserInput, setFourthUserInput] = useState("");
-  const [fifthUserInput, setFifthhUserInput] = useState("");
+  const [firstUserInput, setFirstUserInput] = useState("testingAPI!");
   const [errorMessage, setErrorMessage] = useState(false);
   const [alertState, setAlertState] = useState(false);
   const [msg, setmessage] = useState('')
@@ -49,44 +54,12 @@ const AirDrop = () => {
       setAccounts(result);
     };
     dataFetch();
-    // Get network provider and web3 instance.
-    const init = async () => {
-      const web3 = await getWeb3();
-      // Use web3 to get the user's accounts.
-      const userAccounts = await web3.eth.getAccounts();
-      const defaultAccount = userAccounts[0];
-      if (defaultAccount) {
-        const part1 = defaultAccount.slice(0, 6);
-        const part2 = defaultAccount.slice(38, 44);
-        const beautyAddress = ` ${part1}...${part2}`;
-        if (accountWhitelisted(defaultAccount)) {
-          setUserAccount(beautyAddress);
-          setButtonTextState("Connected");
-          setWhitelistedError(false)
-        } else {
-          setWhitelistedError(true)
-          setButtonTextState(" Connect Wallet");
-        }
-      }
-      setButtonTextState("Connect Wallet");
-      // Get the contract instance.
-      const instance = new web3.eth.Contract(
-        contractAbi,
-        "0x1De85704E96cEF99358A3558395fAa1d339D9883"
-      );
-      console.log(instance, "Instance")
-      setContract(instance);
-      setWeb3(web3);
-    };
-    init();
-
     try {
       window.ethereum.on('accountsChanged', function (accounts) {
         if (accounts[0]) {
           const part1 = accounts[0].slice(0, 6);
           const part2 = accounts[0].slice(38, 44);
           const mybeautyAddress = ` ${part1}...${part2}`;
-          console.log('here in console', accounts[0], accountWhitelisted(accounts[0]))
           if (accountWhitelisted(accounts[0])) {
             setUserAccount(mybeautyAddress);
             setButtonTextState("Connected");
@@ -118,11 +91,45 @@ const AirDrop = () => {
 
   }, []);
 
+  useEffect(() => {
+    const init = async () => {
+      const web3 = await getWeb3();
+      // Use web3 to get the user's accounts.
+      const userAccounts = await web3.eth.getAccounts();
+      const defaultAccount = userAccounts[0];
+      if (defaultAccount) {
+        const part1 = defaultAccount.slice(0, 6);
+        const part2 = defaultAccount.slice(38, 44);
+        const beautyAddress = ` ${part1}...${part2}`;
+        setTimeout(() => {
+          if (accountWhitelisted(defaultAccount)) {
+            setUserAccount(beautyAddress);
+            setButtonTextState("Connected");
+            setWhitelistedError(false)
+          } else {
+            setWhitelistedError(true)
+            setButtonTextState(" Connect Wallet");
+          }
+        }, 2000);
+          
+      }
+      setButtonTextState("Connect Wallet");
+      // Get the contract instance.
+      const instance = new web3.eth.Contract(
+        contractAbi,
+        "0x1De85704E96cEF99358A3558395fAa1d339D9883"
+      );
+      console.log(instance, "Instance")
+      setContract(instance);
+      setWeb3(web3);
+    };
+    init();
+  }, [accounts])
+  
+
   const accountWhitelisted = (address) => {
     return accountRef.current ? accountRef.current.some((el) => el.Walletaddress.toUpperCase() === address.toUpperCase()) : ''
   }
-
-  console.log(accounts, "accounts")
 
   // Open metamask on click
 
@@ -145,15 +152,6 @@ const AirDrop = () => {
     }
   };
 
-  //Helper Functions
-  const toWei = (amount) => {
-    return web3.utils.toWei(amount, "Ether");
-  };
-
-
-  const fromWei = (amount) => {
-    return web3.utils.fromWei(amount, "Ether");
-  };
   const errInRequest = (err) => {
     setPercent(0)
     setStatus('error')
@@ -186,6 +184,7 @@ const AirDrop = () => {
             setTimeout(() => {
               setPercent(2)
               setStatus('finish')
+              setTestSuccess(true)
             }, 200);
 
             setTimeout(() => {
@@ -200,22 +199,7 @@ const AirDrop = () => {
         });
     }, 5000);
   };
-  const setUserName = (key, value) => {
-    if (key === "firstUserInput") {
-      setFirstUserInput(value)
-    } else if (key === "secondUserInput") {
-      setSecondUserInput(value)
 
-    } else if (key === "thirdUserInput") {
-      setThirdUserInput(value)
-
-    } else if (key === "fourthUserInput") {
-      setFourthUserInput(value)
-
-    } else {
-      setFifthhUserInput(value)
-    }
-  };
   // Main Functions
 
   const signUp = async () => {
@@ -227,7 +211,6 @@ const AirDrop = () => {
       Username: firstUserInput.toString()
     })
       if (firstUserInput) {
-        debugger
         setPercent(0)
         setStatus('wait')
         setOpenBackdrop(true);
@@ -313,19 +296,35 @@ const AirDrop = () => {
             variant="h3"
             className="main-heading"
           >
-            {!testSuccess ?  "Claim your airdrop" : "SUCCESSFULLYTRANSFERED"}
+            {!testSuccess ?  "Claim your airdrop" : "SUCCESSFULLY TRANSFERED"}
           </Typography>
+          {!testSuccess ?
+            <Typography
+              variant="h3"
+              className="sub-heading"
+            >
+              Anyone with an ENS or UNSTOPPABLE DOMAIN can claim their share of MTAG tokens
+            </Typography>
+            :
+            <Grid container item
+              xs={12}
+              lg={12}
+              spacing={3}
+              justifyContent="center"
+              alignItems="center"
+              style={{ textAlign: "center" }}>
+              <div className="outer-aread-button">
+                <div className="inner-circle">
+                  <img className="img" src={TickImg} alt="tickImage" />
+                </div>
+              </div>
+            </Grid>
+          }
           <Typography
             variant="h3"
             className="sub-heading"
           >
-            Anyone with an ENS or UNSTOPPABLE DOMAIN can claim their share of MTAG tokens
-          </Typography>
-          <Typography
-            variant="h3"
-            className="sub-heading"
-          >
-            <span className="">0.1 ETH</span> <span>/</span> <span> $450 USD </span>
+            {!testSuccess ? <div><span className="">0.1 ETH</span> <span>/</span> <span> $450 USD </span></div> : <span style={{marginTop: '50px'}}>SUCCESSFULLY TRANSFERED - 26384Di49</span> }
           </Typography>
         </Grid>
 
@@ -344,26 +343,44 @@ const AirDrop = () => {
                 color="inherit"
                 onClick={signUp}
                 variant="contained"
-                className={disableButton ? "claim-btn claimed" : "appBarGradient claim-btn"}
+                className={testSuccess ? "claim-btn claimed" : "appBarGradient claim-btn"}
               >
-                Claim Now
+                {testSuccess ? "CLAIMED" : "Claim Now" }
               </Button>
             </div>
           </Grid>
-        </Grid>
-        <Typography
-            variant="h3"
-            className="sub-heading"
-          >
-            REQUIREMENTS
-          </Typography>
-        <Grid item container xs={12} justify="space-evenly">
+          <Backdrop className={classes.backdrop} open={openBackdrop}>
+            <div className="backdropModal">
+              <div className="text-left">
+                <p style={{ marginTop: '0', textAlign: 'left' }}>Your transaction is in Progress.</p>
 
-          <Grid item xs={8} sm={8} md={8} lg={8} xl={8} style={{ textAlign: "center", marginTop: "40px" }}>
-            {alertState ? <SimpleAlerts status={status} msg={msg} /> : null}
-          </Grid>
-
+              </div>
+              <Stepper stepperType={false} number={initalPercent} status={initialStatus} />
+            </div>
+          </Backdrop>
         </Grid>
+        {!testSuccess &&
+          <>
+            <Grid item container xs={12} justify="center">
+              <Typography
+                variant="h3"
+                className="sub-heading"
+                style={{ marginTop: "50px !important" }}
+              >
+                REQUIREMENTS
+              </Typography>
+            </Grid>
+
+            <Grid item container xs={6} >
+              <div className="requirment"><img src={coloredTIck} alt="coloredTIck" /><span style={{ marginLeft: '20px' }}>Must own a MetaTag</span></div>
+            </Grid>
+            <Grid item container xs={12} >
+            </Grid>
+            <Grid item container xs={6} >
+              <div className="requirment"><img src={coloredTIck} alt="coloredTIck" /><span style={{ marginLeft: '20px' }}>Must have had a ENS or UNSTOPPABLE DOMAIN within the past year</span></div>
+            </Grid>
+          </>
+        }
       </Grid>
     </div>
   );

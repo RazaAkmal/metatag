@@ -13,6 +13,7 @@ export function Stepper(props) {
         textAlign: 'left'
       };
     return (
+      props.stepperType ? 
         <Steps  direction="vertical" style={styles} current={props.number} status={props.status}>
         <Step
           title={ props.number === 0  ? <Loader name="Registering"/> :"Registering"}
@@ -23,6 +24,10 @@ export function Stepper(props) {
         />
         <Step title={ props.number === 2  ? <Loader name="Minting"/> : 'Minting'  } />
       </Steps>
+      : <div style={{height: '100px', marginTop: '20px'}}>
+        <div>VALIDATING </div>
+        <div style={{height: '100px', marginTop: '20px'}}> TRANSFERRING </div>
+      </div>
         // <ProgressBar
         //     width="100%"
         //     percent={props.percent}
