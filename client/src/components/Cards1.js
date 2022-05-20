@@ -70,7 +70,7 @@ export default function OutlinedCard(props) {
                 changeSetButtonDisable={(buttonDisable) =>
                   setButtonDisable(buttonDisable)
                 }
-                invalidName={(value) =>
+                setValidName={(value) =>
                   setValid(value)
                 }
                 userUsername={(usname) => {
@@ -79,7 +79,7 @@ export default function OutlinedCard(props) {
               />
             ))}
 
-            {valid ? null : <div style={{ color: 'black', marginTop: '0' }}>Only Uppercase Characters Allowed</div>}
+            {valid ? null : <div style={{ color: 'black', marginTop: '0' }}>Only Uppercase Alphabets Allowed</div>}
             {props.errorMessage ? <div style={{ color: 'black', marginTop: '0' }}>{props.errorMessage}</div> : null}
 
             <Button

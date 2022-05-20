@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BasicTextFields({
   changeSetButtonDisable,
   userUsername,
-  invalidName,
+  setValidName,
   showMinusIcnon,
   setNumberOfUsers,
   numberOfUsers,
@@ -33,13 +33,12 @@ export default function BasicTextFields({
   const [loading, setLoading] = useState(false);
 
   function getData(val) {
- 
     if(val.target.value !== (val.target.value).toUpperCase()){
       changeSetButtonDisable(true);
-      invalidName(false)
+      setValidName(false)
       return
     }
-    invalidName(true);
+    setValidName(true);
     setLoading(true);
 
     userUsername(val.target.value);
@@ -48,7 +47,6 @@ export default function BasicTextFields({
       if(val.target.value === "") {
         setLoading(false)
         changeSetButtonDisable(true);
-
       }
       else if (val.target.value === customerName[i].Username) {
         changeSetButtonDisable(true);
@@ -59,7 +57,6 @@ export default function BasicTextFields({
         break;
       }
       else {
-
         changeSetButtonDisable(false);
         setInterval(() => {
           setLoading(false);
@@ -76,7 +73,16 @@ export default function BasicTextFields({
         fullWidth ={true}
         variant="outlined"
         required= {true}
-        onChange={getData}
+        onChange={(e)=> {
+          let letters = /^[A-Za-z]+$/;
+          if(e.target.value.match(letters)) {
+            changeSetButtonDisable(false)
+            getData(e)
+          }else {
+            changeSetButtonDisable(true)
+            setValidName(false)
+          }
+        }}
         style={{padding: '10px', width: '100%', backgroundColor: 'white', border:'none',margin:'10px 12px', height:'35px'}}
         color={"secondary"}
         placeholder={`USERNAME  ${inputIndex}`}
