@@ -29,7 +29,7 @@ const api = require('./routes/routes');
 
 app.use('/api/v1/', api);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 // This middleware informs the express application to serve our compiled React files
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
