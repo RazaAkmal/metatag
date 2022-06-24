@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import LogoImg from '../src/images/logo.svg';
 
 
-const mintingFee = 10000000000000000
+const mintingFee = 1000000000000000
 const App = () => {
   const [web3, setWeb3] = useState();
   const [userAccount, setUserAccount] = useState(undefined);
@@ -26,11 +26,7 @@ const App = () => {
   const [apiResponse, setApiResponse] = useState();
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const [numberOfUsers, setNumberOfUsers] = useState(['firstUserInput']);
-  const [firstUserInput, setFirstUserInput] = useState("");
-  const [secondUserInput, setSecondUserInput] = useState("");
-  const [thirdUserInput, setThirdUserInput] = useState("");
-  const [fourthUserInput, setFourthUserInput] = useState("");
-  const [fifthUserInput, setFifthhUserInput] = useState("");
+  const [userNameArray, setuserNameArray] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
   const [alertState, setAlertState] = useState(false);
   const [msg, setmessage] = useState('')
@@ -40,19 +36,19 @@ const App = () => {
   const [whitelistedError, setWhitelistedError] = useState()
   const accountRef = useRef(accounts);
   useEffect(() => {
-    const dataFetch = async () => {
-      const response = await fetch(
-        "/api/v1/fetch-whitelisted"
-      );
-      const json = await response.json();
-      const result = JSON.parse(json);
-      accountRef.current = result
-      setAccounts(result);
-    };
-    dataFetch();
     // Get network provider and web3 instance.
     const init = async () => {
       const web3 = await getWeb3();
+      const dataFetch = async () => {
+        const response = await fetch(
+          "/api/v1/fetch-whitelisted"
+        );
+        const json = await response.json();
+        const result = JSON.parse(json);
+        accountRef.current = result
+        setAccounts(result);  
+      };
+      await dataFetch();
       // Use web3 to get the user's accounts.
       const userAccounts = await web3.eth.getAccounts();
       const defaultAccount = userAccounts[0];
@@ -69,13 +65,11 @@ const App = () => {
           setButtonTextState(" Connect Wallet");
         }
       }
-      setButtonTextState("Connect Wallet");
       // Get the contract instance.
       const instance = new web3.eth.Contract(
         contractAbi,
-        "0xe8935C7dE07cFF6A92bE9420B31758403dDC53C5"
+        "0x53d119fe1BfD6a76A833141C51b050e6D2Bde20B"
       );
-      console.log(instance, "Instance")
       setContract(instance);
       setWeb3(web3);
     };
@@ -87,7 +81,6 @@ const App = () => {
           const part1 = accounts[0].slice(0, 6);
           const part2 = accounts[0].slice(38, 44);
           const mybeautyAddress = ` ${part1}...${part2}`;
-          console.log('here in console', accounts[0], accountWhitelisted(accounts[0]))
           if (accountWhitelisted(accounts[0])) {
             setUserAccount(mybeautyAddress);
             setButtonTextState("Connected");
@@ -100,9 +93,9 @@ const App = () => {
         // Time to reload your interface with accounts[0]!
       });
       window.ethereum.on('chainChanged', (chainId) => {
-        if (chainId !== '0x4') {
+        if (chainId !== '0x2a') {
           setDisableButton(true)
-          toast("Oops, please connect to Rinkeby Network", {
+          toast("Oops, please connect to Kovan Network", {
             hideProgressBar: true,
             autoClose: false,
             position: "top-left",
@@ -122,8 +115,6 @@ const App = () => {
   const accountWhitelisted = (address) => {
     return accountRef.current ? accountRef.current.some((el) => el.Walletaddress.toUpperCase() === address.toUpperCase()) : ''
   }
-
-  console.log(accounts, "accounts")
 
   // Open metamask on click
 
@@ -201,39 +192,27 @@ const App = () => {
         });
     }, 5000);
   };
-  const setUserName = (key, value) => {
-    if (key === "firstUserInput") {
-      setFirstUserInput(value)
-    } else if (key === "secondUserInput") {
-      setSecondUserInput(value)
-
-    } else if (key === "thirdUserInput") {
-      setThirdUserInput(value)
-
-    } else if (key === "fourthUserInput") {
-      setFourthUserInput(value)
-
-    } else {
-      setFifthhUserInput(value)
-    }
+  const setUserName = (index, value) => {
+    let arrayname = [...userNameArray]
+    arrayname[index] = value
+    setuserNameArray(arrayname)
+    setErrorMessage(false)
   };
   // Main Functions
 
   const signUp = async () => {
     const userAddresses = await web3.eth.getAccounts();
     const userAdd = userAddresses[0];
-    let json = JSON.stringify({
-      Walletaddress: userAdd,
-      Username: firstUserInput.toString()
-    })
 
     let usersLength = numberOfUsers.length
-    if (usersLength === 1) {
-      if (firstUserInput) {
+    let userWithoutUndefined = userNameArray.filter(user => user !== undefined)
+    let enteredUser = userWithoutUndefined.filter(user => user !== '')
+
+      if (usersLength === enteredUser.length) {
         setPercent(0)
         setStatus('wait')
         setOpenBackdrop(true);
-        await contract.methods.signup(firstUserInput.toString()).send({ from: userAdd, value: mintingFee }, function (err, res) {
+        await contract.methods.registerNames(enteredUser).send({ from: userAdd, value: mintingFee * enteredUser.length }, function (err, res) {
           if (res) {
             successResponse(res)
           }
@@ -244,77 +223,15 @@ const App = () => {
       } else {
         setErrorMessage("Please enter username to get registered")
       }
-    }
-    if (usersLength === 2) {
-      if (firstUserInput && secondUserInput) {
-        setPercent(0)
-        setStatus('wait')
-        setOpenBackdrop(true);
-        await contract.methods.signup2(firstUserInput.toString(), secondUserInput.toString()).send({ from: userAdd, value: mintingFee * 2 }, function (err, res) {
-          if (res) {
-            successResponse(res)
-          }
-          if (err) {
-            errInRequest(err)
-          }
-        })
-      } else {
-        setErrorMessage("Please enter username in all fields to get registered")
-      }
-    }
-    if (usersLength === 3) {
-      if (firstUserInput && secondUserInput && thirdUserInput) {
-        await contract.methods.signup3(firstUserInput.toString(), secondUserInput.toString(), thirdUserInput.toString()).send({ from: userAdd, value: mintingFee * 3 }, function (err, res) {
-          if (res) {
-            successResponse(res)
-          }
-          if (err) {
-            errInRequest(err)
-          }
-        })
-      } else {
-        setErrorMessage("Please enter username in all fields to get registered")
-      }
-    }
-    if (usersLength === 4) {
-      if (firstUserInput && secondUserInput && thirdUserInput && fourthUserInput) {
-        await contract.methods.signup4(firstUserInput.toString(), secondUserInput.toString(), thirdUserInput.toString(), fourthUserInput.toString()).send({ from: userAdd, value: mintingFee * 4 }, function (err, res) {
-          if (res) {
-            successResponse(res)
-          }
-          if (err) {
-            errInRequest(err)
-          }
-        })
-      } else {
-        setErrorMessage("Please enter username in all fields to get registered")
-      }
-    }
-    if (usersLength === 5) {
-      if (firstUserInput && secondUserInput && thirdUserInput && fourthUserInput && fifthUserInput) {
-        await contract.methods.signup5(firstUserInput.toString(), secondUserInput.toString(), thirdUserInput.toString(), fourthUserInput.toString(), fifthUserInput.toString()).send({ from: userAdd, value: mintingFee * 5 }, function (err, res) {
-          if (res) {
-            successResponse(res)
-          }
-          if (err) {
-            errInRequest(err)
-          }
-        })
-      } else {
-        setErrorMessage("Please enter username in all fields to get registered")
-      }
-    }
-
   };
-
+  
   return (
     <div className="bgCover">
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         {/* <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Navbar connect={initWeb3} buttonText={buttonTextState} />
         </Grid> */}
         <Grid
-          direction="row"
           item
           xl={4}
           lg={4}
@@ -326,7 +243,6 @@ const App = () => {
           {" "}
         </Grid>
         <Grid
-          direction="row"
           item
           xl={4}
           lg={4}
@@ -369,7 +285,6 @@ const App = () => {
           sm={12}
           xs={12}
           style={{ textAlign: "center", marginTop: "40px" }}
-          spacing={9}
         >
 
           <Typography
@@ -382,7 +297,7 @@ const App = () => {
             variant="h3"
             className="sub-heading"
           >
-            Current Mint Price <span className="">0.1 ETH</span> <span>/</span> <span> $450 USD </span>
+            Current Mint Price <span className="">{(0.1 * numberOfUsers.length).toFixed(1)} ETH</span>
           </Typography>
         </Grid>
 
@@ -390,7 +305,6 @@ const App = () => {
           <Grid container item
             xs={12}
             lg={12}
-            spacing={3}
             justifyContent="center"
             alignItems="center"
             style={{ textAlign: "center" }}>
@@ -419,7 +333,7 @@ const App = () => {
 
         </Grid>
 
-        <Grid item container xs={12} justify="space-evenly">
+        <Grid item container xs={12} justifyContent="space-evenly">
 
           <Grid item xs={8} sm={8} md={8} lg={8} xl={8} style={{ textAlign: "center", marginTop: "40px" }}>
             {alertState ? <SimpleAlerts status={status} msg={msg} /> : null}

@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BasicTextFields({
   changeSetButtonDisable,
   userUsername,
+  removeUserName,
   setValidName,
   showMinusIcnon,
   setNumberOfUsers,
@@ -74,7 +75,7 @@ export default function BasicTextFields({
         variant="outlined"
         required= {true}
         onChange={(e)=> {
-          let letters = /^[A-Za-z]+$/;
+          let letters = /^[a-zA-Z0-9_.-]*$/;
           if(e.target.value.match(letters)) {
             changeSetButtonDisable(false)
             getData(e)
@@ -99,6 +100,7 @@ export default function BasicTextFields({
          </input>
         {showMinusIcnon && <span onClick={()=>{
           let newUsers = numberOfUsers.filter((user, index) => index !== numberOfUsers.length - 1)
+          removeUserName(newUsers.length, '')
           setNumberOfUsers(newUsers)
           setErrorMessage(false)
         }}  className="input-remove">-</span>} 

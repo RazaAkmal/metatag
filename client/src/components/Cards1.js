@@ -44,12 +44,10 @@ export default function OutlinedCard(props) {
       );
       const json = await response.json();
       const result = JSON.parse(json);
-      console.log(result);
       setCustomerName(result, "result ehre");
     };
     dataFetch();
   }, []);
-  console.log(customerName)
   return (
     <Card
       className={classes.root}
@@ -70,16 +68,17 @@ export default function OutlinedCard(props) {
                 changeSetButtonDisable={(buttonDisable) =>
                   setButtonDisable(buttonDisable)
                 }
+                removeUserName={props.myUserName}
                 setValidName={(value) =>
                   setValid(value)
                 }
                 userUsername={(usname) => {
-                  props.myUserName(user, usname)
+                  props.myUserName(index, usname)
                 }}
               />
             ))}
 
-            {valid ? null : <div style={{ color: 'black', marginTop: '0' }}>Only Uppercase Alphabets Allowed</div>}
+            {valid ? null : <div style={{ color: 'black', marginTop: '0' }}>Only Uppercase and Numaric Alphabets Allowed</div>}
             {props.errorMessage ? <div style={{ color: 'black', marginTop: '0' }}>{props.errorMessage}</div> : null}
 
             <Button

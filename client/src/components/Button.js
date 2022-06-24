@@ -72,7 +72,7 @@ export default function SimpleBackdrop(props) {
 
           </div>
         {/* <CircularProgress style={{color: 'black'}} /> */}
-        <Stepper  number={props.number} status={props.status}/>
+        <Stepper stepperType={true}  number={props.number} status={props.status}/>
         </div>
       </Backdrop>
     </div>
