@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./loader.css";
 
 export function Loader(props) {
-    console.log(props);
 
     return (
         

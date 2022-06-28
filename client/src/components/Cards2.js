@@ -75,7 +75,6 @@ export default function OutlinedCard(props) {
       </Typography> */}
       <Typography style={{ marginLeft: "7px", marginBottom: "35px" }}>
         <DisabledOptions buttonState={state => {
-          console.log(state)
           setButtonDisable(state)
         }}></DisabledOptions>
       </Typography>

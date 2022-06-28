@@ -94,6 +94,9 @@ export default function OutlinedCard(props) {
               buttonDisable={buttonDisable}
             ></Button>
 
+            {/* <div style={{ color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '35px', padding: "0 10px" }}>
+              <div className="card-address">Registered User will be here</div>
+            </div> */}
             <div style={{ color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '35px', padding: "0 10px" }}>
               <div className="card-address">Your Eth Address</div>
               <div className="address-box" > {props.addressOfUser}</div>

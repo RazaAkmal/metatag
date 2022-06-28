@@ -68,7 +68,7 @@ const App = () => {
       // Get the contract instance.
       const instance = new web3.eth.Contract(
         contractAbi,
-        "0x53d119fe1BfD6a76A833141C51b050e6D2Bde20B"
+        "0x7609669Bbfe6d5aB67cAF512eb7DC9dE6B6809c7"
       );
       setContract(instance);
       setWeb3(web3);
@@ -93,9 +93,9 @@ const App = () => {
         // Time to reload your interface with accounts[0]!
       });
       window.ethereum.on('chainChanged', (chainId) => {
-        if (chainId !== '0x2a') {
+        if (chainId !== '0x4') {
           setDisableButton(true)
-          toast("Oops, please connect to Kovan Network", {
+          toast("Oops, please connect to Rinkeby Network", {
             hideProgressBar: true,
             autoClose: false,
             position: "top-left",
@@ -165,25 +165,24 @@ const App = () => {
 
           }
           else if (txReceipt && txReceipt.status === true) {
+            console.log(txReceipt, "TxReceipt")
             clearInterval(runInterval);
-            toast('Transaction Confirmed', {
-              className: 'toast'
-            });
-
             setPercent(0)
             setStatus('process')
             setTimeout(() => {
               setPercent(1)
-            }, 100);
-            setTimeout(() => {
-              setPercent(2)
-              setStatus('finish')
-            }, 200);
-
-            setTimeout(() => {
-              setOpenBackdrop(false)
+              setTimeout(() => {
+                setPercent(2)
+                setStatus('finish')
+                setTimeout(() => {
+                  setOpenBackdrop(false)
+                  registery()
+                  toast('Transaction Confirmed', {
+                    className: 'toast'
+                  });
+                }, 20000);
+              }, 20000);
             }, 2000);
-
           } else if (txReceipt && txReceipt.status === false) {
             clearInterval(runInterval);
             setPercent(0)
@@ -199,6 +198,15 @@ const App = () => {
     setErrorMessage(false)
   };
   // Main Functions
+
+  const registery = async () => {
+    let userWithoutUndefined = userNameArray.filter(user => user !== undefined)
+    let enteredUser = userWithoutUndefined.filter(user => user !== '')
+    const results = await contract.methods.registery(enteredUser[0])
+    // let response = `https://testnet.opensea.io/0x53d119fe1BfD6a76A833141C51b050e6D2Bde20B/${results}`
+    console.log("result in Console", results)
+
+  }
 
   const signUp = async () => {
     const userAddresses = await web3.eth.getAccounts();

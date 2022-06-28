@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleAlerts(props) {
   const classes = useStyles();  
-  console.log(props);
   return (
     <div >
 
