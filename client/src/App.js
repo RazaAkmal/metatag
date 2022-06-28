@@ -68,7 +68,7 @@ const App = () => {
       // Get the contract instance.
       const instance = new web3.eth.Contract(
         contractAbi,
-        "0x7609669Bbfe6d5aB67cAF512eb7DC9dE6B6809c7"
+        "0x4A119210B6109Df415eB70024F0D7A8021e39fe4"
       );
       setContract(instance);
       setWeb3(web3);
@@ -202,10 +202,11 @@ const App = () => {
   const registery = async () => {
     let userWithoutUndefined = userNameArray.filter(user => user !== undefined)
     let enteredUser = userWithoutUndefined.filter(user => user !== '')
-    const results = await contract.methods.registery(enteredUser[0])
-    // let response = `https://testnet.opensea.io/0x53d119fe1BfD6a76A833141C51b050e6D2Bde20B/${results}`
-    console.log("result in Console", results)
-
+    const results = await contract.methods.returnTokenIdFromName("BECAUSEIF").call(function (err, res) {
+      console.log("Token id is", res)
+    })
+    let response = `https://testnet.opensea.io/0x53d119fe1BfD6a76A833141C51b050e6D2Bde20B/${results}`
+    console.log("result in Console", response)
   }
 
   const signUp = async () => {
