@@ -93,10 +93,10 @@ export default function OutlinedCard(props) {
               setNumberOfUsers={props.setNumberOfUsers}
               buttonDisable={buttonDisable}
             ></Button>
-
-            {/* <div style={{ color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '35px', padding: "0 10px" }}>
-              <div className="card-address">Registered User will be here</div>
-            </div> */}
+            {props.registryResult.length ? props.registryResult.map((result, index) => <div style={{ color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: index === 0 ? '35px' : "5px", padding: "0 10px" }}>
+              <a className="card-address" target="_blank" href={`https://testnets.opensea.io/assets/rinkeby/0x4a119210b6109df415eb70024f0d7a8021e39fe4/${result}`}>https://testnets.opensea.io/assets/rinkeby/0x4a119210b6109df415eb70024f0d7a8021e39fe4/{result}</a>
+            </div>) : ''}
+            
             <div style={{ color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '35px', padding: "0 10px" }}>
               <div className="card-address">Your Eth Address</div>
               <div className="address-box" > {props.addressOfUser}</div>

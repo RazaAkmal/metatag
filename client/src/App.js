@@ -34,6 +34,7 @@ const App = () => {
   const [disableButton, setDisableButton] = useState('')
   const [accounts, setAccounts] = useState()
   const [whitelistedError, setWhitelistedError] = useState()
+  const [registryResult, setRegistryResult] = useState([])
   const accountRef = useRef(accounts);
   useEffect(() => {
     // Get network provider and web3 instance.
@@ -165,7 +166,6 @@ const App = () => {
 
           }
           else if (txReceipt && txReceipt.status === true) {
-            console.log(txReceipt, "TxReceipt")
             clearInterval(runInterval);
             setPercent(0)
             setStatus('process')
@@ -173,14 +173,9 @@ const App = () => {
               setPercent(1)
               setTimeout(() => {
                 setPercent(2)
-                setStatus('finish')
                 setTimeout(() => {
-                  setOpenBackdrop(false)
                   registery()
-                  toast('Transaction Confirmed', {
-                    className: 'toast'
-                  });
-                }, 20000);
+                }, 60000);
               }, 20000);
             }, 2000);
           } else if (txReceipt && txReceipt.status === false) {
@@ -199,14 +194,39 @@ const App = () => {
   };
   // Main Functions
 
+  const returnTokenIdFromName = async (name) => {
+    const response = await contract.methods.returnTokenIdFromName(name).call(function (err, res) {
+      if (res === 0) {
+        return 0
+      } else {
+        return res
+      }
+    })
+    return response
+  }
+
   const registery = async () => {
     let userWithoutUndefined = userNameArray.filter(user => user !== undefined)
     let enteredUser = userWithoutUndefined.filter(user => user !== '')
-    const results = await contract.methods.returnTokenIdFromName("BECAUSEIF").call(function (err, res) {
-      console.log("Token id is", res)
+    let responseResult = []
+    enteredUser.map(async (user, index) => {
+      const result = await returnTokenIdFromName(user)
+      if (Number(result) === 0) {
+        console.log('loosing')
+      } else {
+        console.log(result, "success result")
+        setStatus('finish')
+        responseResult.push(result)
+        setOpenBackdrop(false)
+        toast('Transaction Confirmed', {
+          className: 'toast'
+        });
+      }
+
+      if (enteredUser.length - 1 === index) {
+        setRegistryResult(responseResult)
+      }
     })
-    let response = `https://testnet.opensea.io/0x53d119fe1BfD6a76A833141C51b050e6D2Bde20B/${results}`
-    console.log("result in Console", response)
   }
 
   const signUp = async () => {
@@ -334,6 +354,7 @@ const App = () => {
                   errorMessage={errorMessage}
                   setErrorMessage={setErrorMessage}
                   whitelistedError={whitelistedError}
+                  registryResult={registryResult}
                 />
               </div>
             </Grid>
