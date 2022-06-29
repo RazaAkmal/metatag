@@ -106,7 +106,7 @@ export default function OutlinedCard(props) {
             variant="h3"
             style={{ color: "white", paddingBottom: "20px", paddingTop: "10px" }}
           >
-            Sorry Only Whitelisted Users Can Currently Mint
+            {props.accountErrorMessage}
           </Typography>
         }
 

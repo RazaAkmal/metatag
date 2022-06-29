@@ -28,6 +28,7 @@ const App = () => {
   const [numberOfUsers, setNumberOfUsers] = useState(['firstUserInput']);
   const [userNameArray, setuserNameArray] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [accountErrorMessage, setAccountErrorMessage] = useState('');
   const [alertState, setAlertState] = useState(false);
   const [msg, setmessage] = useState('')
   const [status, setalertStatus] = useState('')
@@ -63,8 +64,13 @@ const App = () => {
           setWhitelistedError(false)
         } else {
           setWhitelistedError(true)
-          setButtonTextState(" Connect Wallet");
+          setAccountErrorMessage("Sorry Only Whitelisted Users Can Currently Mint");
+          setButtonTextState("Connect Wallet");
         }
+      } else {
+        setWhitelistedError(true)
+        setAccountErrorMessage("Please Connect To Your Wallet");
+        setButtonTextState("Connect Wallet");
       }
       // Get the contract instance.
       const instance = new web3.eth.Contract(
@@ -355,6 +361,7 @@ const App = () => {
                   setErrorMessage={setErrorMessage}
                   whitelistedError={whitelistedError}
                   registryResult={registryResult}
+                  accountErrorMessage={accountErrorMessage}
                 />
               </div>
             </Grid>
