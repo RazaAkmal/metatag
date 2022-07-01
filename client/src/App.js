@@ -161,6 +161,46 @@ const App = () => {
       className: 'toast'
     });
   };
+
+
+  const POLL_INTERVAL = 5000;
+  const MAX_ATTEMPTS = 36;
+
+  const pollRegistryAPI = ({ fn, interval, maxAttempts }) => {
+    console.log('Start poll...');
+    let attempts = 0;
+  
+    const executePoll = async (resolve, reject) => {
+      console.log('- poll');
+      const result = await fn();
+      attempts++;
+       result.includes(4); 
+      if (!result.includes(0)) {
+        return resolve(result);
+      } else if (maxAttempts && attempts === maxAttempts) {
+        let count = 0
+        let Mintcount = 0
+        result.forEach(element => {
+          if (element === 0) {
+            count += 1;
+          } else {
+            Mintcount += 1;
+          }
+        });
+        if (result.length === count) {
+          return reject(new Error('Error occured, contact admins on discord'));
+        } else {
+          return reject(new Error(`${Mintcount} was minted`));
+        }
+
+      } else {
+        setTimeout(executePoll, interval, resolve, reject);
+      }
+    };
+  
+    return new Promise(executePoll);
+  };
+
   const successResponse = (res) => {
     setPercent(0)
     setStatus('process')
@@ -178,12 +218,36 @@ const App = () => {
             setTimeout(() => {
               setPercent(1)
               setTimeout(() => {
-                setPercent(2)
-                setTimeout(() => {
-                  registery()
-                }, 60000);
+                const pollForRegistry = pollRegistryAPI({
+                  fn: registery,
+                  interval: POLL_INTERVAL,
+                  maxAttempts: MAX_ATTEMPTS,
+                })
+                  .then(user => {
+                    setPercent(2)
+                    setTimeout(() => {
+                      setStatus('finish')
+                      setOpenBackdrop(false)
+                      setRegistryResult(user)
+                      toast('Transaction Confirmed', {
+                        className: 'toast'
+                      });
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error(err)
+                    setPercent(2)
+                    setTimeout(() => {
+                      setStatus('finish')
+                      setOpenBackdrop(false)
+                      setRegistryResult([0])
+                      toast(err, {
+                        className: 'toast'
+                      });
+                    }, 5000);
+                  });
               }, 20000);
-            }, 2000);
+            }, 20000);
           } else if (txReceipt && txReceipt.status === false) {
             clearInterval(runInterval);
             setPercent(0)
@@ -215,24 +279,15 @@ const App = () => {
     let userWithoutUndefined = userNameArray.filter(user => user !== undefined)
     let enteredUser = userWithoutUndefined.filter(user => user !== '')
     let responseResult = []
-    enteredUser.map(async (user, index) => {
+    const promises = enteredUser.map(async (user, index) => {
       const result = await returnTokenIdFromName(user)
-      if (Number(result) === 0) {
-        console.log('loosing')
-      } else {
-        console.log(result, "success result")
-        setStatus('finish')
-        responseResult.push(result)
-        setOpenBackdrop(false)
-        toast('Transaction Confirmed', {
-          className: 'toast'
-        });
-      }
-
-      if (enteredUser.length - 1 === index) {
-        setRegistryResult(responseResult)
-      }
+      responseResult.push(Number(result))
+      return result
     })
+  
+    const allResult = await Promise.all(promises)  
+    console.log('End')
+    return responseResult
   }
 
   const signUp = async () => {
