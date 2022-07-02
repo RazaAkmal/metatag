@@ -6,8 +6,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import styles from "./Cards2.css"
 import { toast } from "react-toastify";
 import { json } from "body-parser";
-
-
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,15 +34,22 @@ export default function BasicTextFields({
 },props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
-
+  const [TypedAnyWord, setTypedAnyWord] = useState(false);
+  const [error, setError] = useState(false);
   function getData(val) {
+    if(val.target.value === '') {
+      setTypedAnyWord(false);
+      return
+    }
     if(val.target.value !== (val.target.value).toUpperCase()){
       changeSetButtonDisable(true);
       setValidName(false)
+      setError(true)
       return
     }
     setValidName(true);
     setLoading(true);
+    setTypedAnyWord(true)
 
     userUsername(val.target.value);
     for (let i = 0; i < customerName.length; i++) {
@@ -52,13 +61,15 @@ export default function BasicTextFields({
       else if (val.target.value === customerName[i].Username) {
         changeSetButtonDisable(true);
         setLoading(false);
-        toast('Name Not Available',{
-          className: 'toast'
-        });
+        setError(true)
+        // toast('Name Not Available',{
+        //   className: 'toast'
+        // });
         break;
       }
       else {
         changeSetButtonDisable(false);
+        setError(false)
         setInterval(() => {
           setLoading(false);
         }, 3000);
@@ -68,7 +79,7 @@ export default function BasicTextFields({
 
   return (
     <form className={classes.root} style={{display: 'flex'}} >
-      <input
+      {/* <input
         id="outlined-basic"
         label="Username"
         fullWidth ={true}
@@ -97,7 +108,33 @@ export default function BasicTextFields({
           ),
         }}
       >
-         </input>
+         </input> */}
+        <OutlinedInput
+          style={{
+            background: '#FDF5FB'
+          }}
+          fullWidth
+          placeholder={`USERNAME  ${inputIndex}`}
+          onChange={(e) => {
+            let letters = /^[a-zA-Z0-9_.-]*$/;
+            if (e.target.value.match(letters)) {
+              changeSetButtonDisable(false)
+              getData(e)
+            } else {
+              changeSetButtonDisable(true)
+              setValidName(false)
+            }
+          }}
+          endAdornment={
+            <InputAdornment position="end">
+              {loading ? <CircularProgress thickness={4} color="secondary" size={20} /> : null}
+              {TypedAnyWord && !loading ?
+                (!error ? <CheckCircleOutlineIcon color="success" /> : <CancelIcon color="error" />) : ''
+              }              
+            </InputAdornment>
+          }
+        />
+                
         {showMinusIcnon && <span onClick={()=>{
           let newUsers = numberOfUsers.filter((user, index) => index !== numberOfUsers.length - 1)
           removeUserName(newUsers.length, '')

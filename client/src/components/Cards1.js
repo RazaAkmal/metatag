@@ -44,10 +44,11 @@ export default function OutlinedCard(props) {
       );
       const json = await response.json();
       const result = JSON.parse(json);
-      setCustomerName(result, "result ehre");
+      setCustomerName(result);
     };
     dataFetch();
-  }, []);
+  }, [props.registryResult]);
+
   return (
     <Card
       className={classes.root}
