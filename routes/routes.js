@@ -4,5 +4,6 @@ const controllers = require('./../controllers/controllers');
 
 router.get('/fetch-usernames', controllers.fetchUsernames)
 router.get('/fetch-whitelisted', controllers.fetchWhiteListed)
+router.get('/fetch-filtered-username/', controllers.fetchFilterdUsername)
 
 module.exports = router;

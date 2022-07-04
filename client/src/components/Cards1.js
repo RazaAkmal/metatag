@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import BasicTextFields from "./autocomplete";
 import Button from "./Button";
-import styles from "./Cards1.css";
+import "./Cards1.css";
 import { blue } from "@material-ui/core/colors";
-import { Stepper } from "./stepper";
 
 const useStyles = makeStyles({
   root: {
@@ -30,24 +28,38 @@ const useStyles = makeStyles({
   bacgroundColor: blue,
 });
 
+let debounce
+
 export default function OutlinedCard(props) {
   const classes = useStyles();
   const signup = props.userSignUp;
   const [buttonDisable, setButtonDisable] = useState(true);
   const [valid, setValid] = useState(true);
-  const [customerName, setCustomerName] = useState();
 
-  useEffect(() => {
-    const dataFetch = async () => {
-      const response = await fetch(
-        "/api/v1/fetch-usernames"
-      );
-      const json = await response.json();
-      const result = JSON.parse(json);
-      setCustomerName(result);
-    };
-    dataFetch();
-  }, [props.registryResult]);
+  const debounceFunc =  (name) => {
+    return new Promise((resolve, reject) => {
+      debounce = setTimeout(async () => {
+        const response = await fetch(
+          `/api/v1/fetch-filtered-username?name=${name}`
+        );
+        const json = await response.json();
+        resolve(json === "False");
+      }, 3000)
+    });
+ }
+
+
+  const reloadFilter = (name) => {
+    if (debounce) {
+        clearTimeout(debounce)
+        debounce = null
+    }
+    return new Promise((resolve, reject) => {
+      debounceFunc(name).then((res) => {
+        resolve(res)
+      });
+    });
+}
 
   return (
     <Card
@@ -63,12 +75,12 @@ export default function OutlinedCard(props) {
                 showMinusIcnon={index !== 0 && index === props.numberOfUsers.length - 1}
                 setNumberOfUsers={props.setNumberOfUsers}
                 numberOfUsers={props.numberOfUsers}
-                customerName={customerName}
                 inputIndex={index + 1}
                 setErrorMessage={props.setErrorMessage}
                 changeSetButtonDisable={(buttonDisable) =>
                   setButtonDisable(buttonDisable)
                 }
+                reloadFilter={reloadFilter}
                 removeUserName={props.myUserName}
                 setValidName={(value) =>
                   setValid(value)
