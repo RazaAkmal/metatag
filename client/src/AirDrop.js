@@ -117,7 +117,7 @@ const AirDrop = () => {
       // Get the contract instance.
       const instance = new web3.eth.Contract(
         contractAbi,
-        "0x1De85704E96cEF99358A3558395fAa1d339D9883"
+        "0x38cC05a0b9945203b735dAa9F42CB70a801c6E6d"
       );
       console.log(instance, "Instance")
       setContract(instance);

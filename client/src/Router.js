@@ -1,5 +1,6 @@
 import React from 'react'
 import App from './App'
+import Profile from './Profile'
 import AirDrop from './AirDrop'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
@@ -17,6 +18,10 @@ const PageRoutes = () => {
           <Route
             path="/"
             element={<App />}
+          />
+          <Route
+            path="/profile"
+            element={<Profile />}
           />
           <Route
             path="/airdrop"

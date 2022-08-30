@@ -50,8 +50,26 @@ const fetchWhiteListed = (req, res, next) => {
   
     });
 };
+const fetcNFTImages = (req, res, next) => {
+    const buildUri = `https://metadata.metatag.global/nft/${req.query.tokenId}`
+    axios.get(buildUri,{
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => {
+      console.log(JSON.stringify(response.data), "response here")
+      res.send(JSON.stringify(response.data))
+    })
+    .catch(error => {
+      console.log(error, "Error ehre");
+      res.status(400).send(error.response.data)
+  
+    });
+};
 
 
 module.exports.fetchUsernames = fetchUsernames;
 module.exports.fetchWhiteListed = fetchWhiteListed;
 module.exports.fetchFilterdUsername = fetchFilterdUsername;
+module.exports.fetcNFTImages = fetcNFTImages;

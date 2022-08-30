@@ -54,7 +54,23 @@ line-height: 120%!important;
 text-align: center!important;
 letter-spacing: 0.06em!important;
 text-transform: uppercase!important;
-  
+}
+.meta-own-heading {
+  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Russo One'!important;
+font-style: normal;
+font-weight: 400!important;
+font-size: 50px!important;
+line-height: 120%!important;
+text-align: center!important;
+letter-spacing: 0.06em!important;
+text-transform: uppercase!important;
+}
+.img-block {
+
 }
 .sub-heading-airdrop {
   font-family: 'IBM Plex Sans';
@@ -137,6 +153,8 @@ line-height: 130%!important;
 }
 .connact-btn{
   display: flex;
+  align-items: center;
+  justify-content: flex-end;
   text-align:end;
   padding-right: 60px;
   padding-top: 35px;
@@ -144,7 +162,7 @@ line-height: 130%!important;
 .border-area{
   position: relative;
   width: fit-content;
-  margin-left: auto;
+  /* margin-left: auto; */
 }
 .border-area::before{
   content: '';
@@ -258,4 +276,14 @@ max-width: 560px;
   }
   .MuiOutlinedInput-root {
     background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%);
+  }
+  .MuiFormControl-root {
+    width: fit-content !important;
+    min-width: 150px !important;
+    text-align: start !important;
+    color: #FFFFFF;
+  }
+
+  .MuiSelect-select {
+    height: 0 !important;
   }
