@@ -8,7 +8,7 @@ const path = require('path');
 // Create a new express application named 'app'
 const app = express();
 
-// Set our backend port to be either an environment variable or port 5000
+// Set our backend port to be either an environment variable or port 8080
 
 // This application level middleware prints incoming requests to the servers console, useful to see incoming requests
 app.use((req, res, next) => {

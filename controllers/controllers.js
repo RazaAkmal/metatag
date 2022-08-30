@@ -11,7 +11,6 @@ const fetchUsernames = (req, res, next) => {
       headers
     })
     .then(response => {
-      console.log(response.data);
       res.send(JSON.stringify(response.data))
     })
     .catch(error => {
@@ -43,7 +42,6 @@ const fetchWhiteListed = (req, res, next) => {
       }
     })
     .then(response => {
-      // console.log(response.data);
       res.send(JSON.stringify(response.data))
     })
     .catch(error => {
