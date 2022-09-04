@@ -11,9 +11,11 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     padding: "50px",
-    background: "linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)",
+    background: "linear-gradient(270deg, #5A5A94 0%, #FB406C 100%)",
+    // background: "linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)",
     borderRadius: "0px",
     position: "relative",
+    boxShadow: "2.4px -1.78553e-14px 37.2px rgba(77, 150, 238, 0.5145), inset -26.68px 9.8006e-15px 130.68px #243345, inset 26.68px -9.8006e-15px 98.68px #A4CDFF"
   },
   addr: {
     paddingTop: "20px",

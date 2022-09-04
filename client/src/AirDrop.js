@@ -9,7 +9,7 @@ import { Stepper } from "./components/stepper";
 import "./App.css";
 import SimpleAlerts from "./components/alert"
 import { toast } from 'react-toastify';
-import LogoImg from '../src/images/logo.svg';
+import LogoImg from '../src/images/logo-white.svg';
 import TickImg from '../src/images/tick.svg';
 import coloredTIck from '../src/images/coloredTIck.svg';
 import Backdrop from "@material-ui/core/Backdrop";
@@ -228,7 +228,7 @@ const AirDrop = () => {
   };
 
   return (
-    <div className="bgCover">
+    <div className="bgCover-profile">
       <Grid container justify="center">
         {/* <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Navbar connect={initWeb3} buttonText={buttonTextState} />
@@ -372,12 +372,12 @@ const AirDrop = () => {
             </Grid>
 
             <Grid item container xs={6} >
-              <div className="requirment"><img src={coloredTIck} alt="coloredTIck" /><span style={{ marginLeft: '20px' }}>Must own a MetaTag</span></div>
+              <div className="requirment"><img src={coloredTIck} alt="coloredTIck" /><span style={{ marginLeft: '20px', color: "#FFFF" }}>Must own a MetaTag</span></div>
             </Grid>
             <Grid item container xs={12} >
             </Grid>
             <Grid item container xs={6} >
-              <div className="requirment"><img src={coloredTIck} alt="coloredTIck" /><span style={{ marginLeft: '20px' }}>Must have had a ENS or UNSTOPPABLE DOMAIN within the past year</span></div>
+              <div className="requirment"><img src={coloredTIck} alt="coloredTIck" /><span style={{ marginLeft: '20px', color: "#FFFF" }}>Must have had a ENS or UNSTOPPABLE DOMAIN within the past year</span></div>
             </Grid>
           </>
         }
