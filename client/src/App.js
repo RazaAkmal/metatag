@@ -446,15 +446,15 @@ const App = () => {
               </Select>
             </FormControl>
           </div>
-          <div className={disableButton ? "" : "border-area"}>
+          <div className={disableButton ? "" : "border-area register-head"}>
             <Button
               disabled={disableButton}
               color="inherit"
               onClick={initWeb3}
               variant="contained"
-              className={disableButton ? "connected-btn" : "appBarGradient connected-btn"}
+              className={disableButton ? "connected-btn " : "appBarGradient connected-btn"}
             >
-              {buttonTextState}
+            Connected
             </Button>
           </div>
         </Grid>

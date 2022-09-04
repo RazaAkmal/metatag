@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     background: "linear-gradient(270deg, #5A5A94 0%, #FB406C 100%)",
     // background: "linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)",
     borderRadius: "0px",
+    // opacity: "0.4",
     position: "relative",
     boxShadow: "2.4px -1.78553e-14px 37.2px rgba(77, 150, 238, 0.5145), inset -26.68px 9.8006e-15px 130.68px #243345, inset 26.68px -9.8006e-15px 98.68px #A4CDFF"
   },
@@ -26,6 +27,9 @@ const useStyles = makeStyles({
   },
   pos: {
     marginBottom: 12,
+  },
+  input: {
+    marginBottom: 1522,
   },
   bacgroundColor: blue,
 });
@@ -70,6 +74,14 @@ export default function OutlinedCard(props) {
     >
 
       <div className="whiteWrapper " style={{ marginTop: '0px' }}>
+        <div className="number-user">
+          <p>Number of usernames:</p>
+          <div className="account">
+            <button className="btn btn-count">-</button>
+            <p className="total-count">2</p>
+            <button className="btn btn-count">+</button>
+          </div>
+        </div>
         {!props.whitelistedError ?
           <div>
             {props.numberOfUsers.map((user, index) => (

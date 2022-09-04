@@ -58,7 +58,7 @@
   font-family: 'Russo One'!important;
 font-style: normal;
 font-weight: 400!important;
-font-size: 80px!important;
+font-size: 45px!important;
 line-height: 120%!important;
 text-align: center!important;
 letter-spacing: 0.06em!important;
@@ -182,6 +182,9 @@ line-height: 130%!important;
   left: 5px;
   top: 5px;
 }
+.register-head .connected-btn{
+font-weight: 800!important;
+}
 
 @media (max-width:1280px){
   .connact-btn{
@@ -197,7 +200,7 @@ line-height: 130%!important;
 }
 @media (max-width:700px){
   .main-heading{
-    font-size: 40px!Important;
+    font-size: 30px!Important;
   }
   
 }
@@ -206,16 +209,64 @@ line-height: 130%!important;
 
 }
 .register-outer button{
-  height: 40px;
+  height: 50px;
+  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%)!important;
+  color: white!important;
+  font-weight: 800!important;
 }
 .register-outer:after{
   position: absolute;
     content: '';
     width: 95%;
     height: 89%;
-    border: 2px solid #ffff;
+    border: 2px solid #FF4361;
     left: 17px;
     top: 15px;
+}
+.whiteWrapper input , .whiteWrapper .MuiInputBase-root{
+  background-color: #191919!important;
+  border-radius: 0px;
+  color: white;
+}
+/* .whiteWrapper input:focus , .whiteWrapper .MuiInputBase-root:focus , .Mui-focused{
+  box-shadow: none;
+  outline: none;
+  border-color: transparent;
+} */
+.number-user{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  margin-bottom: 20px;
+}
+.number-user .account{ 
+  display: flex;
+  align-items: center;
+}
+.number-user .account .btn-count{
+  height: 32px;
+  width: 32px;
+  border-radius: 100%;
+  background: linear-gradient(90deg, #FFFFFF -5.32%, #FFEBEE 53.28%, #FFBDB5 109.48%);
+  color: #FF4361;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+ }
+.number-user .account .total-count{ 
+min-width: 48px;
+height: 40px;
+background-color: white;
+color: black;
+text-align: center;
+padding-top: 10px;
+margin: 0 5px;
+}
+
+.whiteWrapper .MuiInputBase-root{
+  border: 1px solid #FF4361;
+
 }
 .input-remove{
   width: unset!Important;
