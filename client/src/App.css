@@ -35,6 +35,14 @@
   min-height: 100vh;
   background-attachment: fixed;
 }
+.bgCover-profile{
+  background: url(./components/background-profile.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
 .MuiAlert-standardError{
   background-color: rgb(253, 237, 237) !important;
 }
@@ -42,10 +50,11 @@
   color: #F06360 !important;
 }
 .main-heading{
-  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  /* background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%); */
+  color: #FFFF;
+  /* -webkit-background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
+  /* background-clip: text; */
   font-family: 'Russo One'!important;
 font-style: normal;
 font-weight: 400!important;
@@ -87,7 +96,7 @@ text-transform: uppercase!important;
   font-size: 24px !important;
   line-height: 140%;
   text-align: center;
-  color: #191919;
+  color: #FFFF;
   margin-top: 30px !important;
   margin-bottom: 30px !important;
 }
@@ -287,3 +296,151 @@ max-width: 560px;
   .MuiSelect-select {
     height: 0 !important;
   }
+
+  /* profile-area  csss*/
+
+.my-container {
+  padding: 10px 50px;
+}
+
+.profile-area .user-profile {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 50px;
+}
+
+.profile-area .user-profile .border-area::before {
+  border-radius: 100%;
+  width: 58px;
+  height: 58px;
+  top: 3px;
+  left: 3px;
+}
+
+.profile-area .user-profile .user-img {
+  position: relative;
+}
+
+.profile-area .user-profile .user-img img {
+  width: 58px;
+  height: 58px;
+  border-radius: 100%;
+  object-fit: cover;
+  position: relative;
+}
+
+.profile-area .user-profile .user-img .active-user {
+  background: #80FF8C;
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  position: absolute;
+  top: 4px;
+  z-index: 9999;
+  left: 5px;
+}
+
+.profile-area .user-profile .address {
+  display: flex;
+  align-items: center;
+}
+
+.profile-area .user-profile .address p {
+  margin-right: 10px;
+  /* color: #ffff; */
+  font-size: 12px;
+}
+
+.profile-area .user-profile .address .address-bar {
+  background: linear-gradient(90deg, #FFFFFF -5.32%, #FFEBEE 53.28%, #FFBDB5 109.48%);
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 30px;
+}
+
+.profile-area .user-profile .address .address-bar span {
+  background: linear-gradient(90deg, #D926AE -5.32%, #FF4361 53.28%, #FF7362 109.48%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.search-tag {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.search-tag .search-filed{
+  margin-right: 7px;
+  position: relative;
+}
+.search-tag .search-filed input{
+  border: 1px solid!important;
+  border-image-slice: 1!important;;
+  border-width: 0.5rem;
+  border-image-source: linear-gradient(to left, #FF4361, #FF7362)!important;
+  border: 1px solid;
+  height: 33px;
+  background: transparent;
+  width: 190px;
+}
+.search-tag .search-filed i{
+  position: absolute;
+  right: 8px;
+  top: 5px;
+}
+.search-tag .connected-btn{
+  padding: 8px 30px !important;
+}
+.search-tag .border-area{
+  margin: unset;
+}
+ .tag {
+  display: flex;
+   align-items: center;
+}
+  .tag p{
+  /* color: white; */
+  font-size: 14px;
+  margin-right: 7px;
+
+}
+  .tag h5{
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.serachTag-result .card {
+position: relative;
+}
+.serachTag-result .card img{
+  max-height: 300px;
+  width: 100%;
+  object-fit: cover;
+}
+.serachTag-result .card .card-contant{
+  position: absolute;
+    bottom: 0;
+    background-color: #191919;
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+}
+.serachTag-result .card .card-contant p{
+  color: #FF4361;
+  margin: 0;
+  text-align: center;
+}
+@media (max-width:800px) {
+  .profile-area .user-profile {
+    padding-right: 10px;
+    justify-content: center;
+  }
+  .search-tag{
+    justify-content: center;
+  }
+
+  .my-container {
+    padding: 0 10px;
+  }
+}

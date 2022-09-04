@@ -12,7 +12,7 @@ import Select from '@mui/material/Select';
 import "./App.css";
 import SimpleAlerts from "./components/alert"
 import { toast } from 'react-toastify';
-import LogoImg from '../src/images/logo.svg';
+import LogoImg from '../src/images/logo-white.svg';
 import BNBImg from '../src/images/BNB.svg';
 import ETHImg from '../src/images/ETH.svg';
 import PolygonImg from '../src/images/Matic.svg';
@@ -386,7 +386,7 @@ const App = () => {
   };
   
   return (
-    <div className="bgCover">
+    <div className="bgCover-profile">
       <Grid container justifyContent="center">
         {/* <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Navbar connect={initWeb3} buttonText={buttonTextState} />
@@ -492,7 +492,7 @@ const App = () => {
             <Grid
               item
               lg={5}>
-              <div className="card-outer">
+              {/* <div className="card-outer"> */}
                 <Cards1
                   className="user-card"
                   addressOfUser={userAccount}
@@ -509,7 +509,7 @@ const App = () => {
                   registryResult={registryResult}
                   accountErrorMessage={accountErrorMessage}
                 />
-              </div>
+              {/* </div> */}
             </Grid>
 
           </Grid>
