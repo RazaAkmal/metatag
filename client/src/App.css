@@ -39,7 +39,7 @@
   background: url(./components/background-profile.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   min-height: 100vh;
   background-attachment: fixed;
 }
@@ -495,3 +495,23 @@ position: relative;
     padding: 0 10px;
   }
 }
+
+.fourGround-img{
+width: 100%;
+margin:80px 0
+}
+.fourGround-img img{
+  width: 100%;
+  }
+
+  .verctorimg {
+    position: absolute;
+    right: 0%;
+    top: 0;
+  }
+  .verctorimg2 {
+    z-index: 0;
+    position: absolute;
+    left: 17%;
+    top: 11%;
+  }

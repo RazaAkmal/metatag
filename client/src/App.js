@@ -458,6 +458,9 @@ const App = () => {
             </Button>
           </div>
         </Grid>
+       <div className="verctorimg"><img src="https://i.ibb.co/jhn6B6J/Vector-5.png" alt="Vector-5" border="0"/></div>
+       <div className="verctorimg2"><img src="https://i.ibb.co/xL5vZzy/Ellipse-89.png" alt="Ellipse-89" border="0"/></div>
+
         <Grid
           item
           xl={6}
@@ -474,15 +477,11 @@ const App = () => {
           >
             Register your Gamertag
           </Typography>
-          <Typography
-            variant="h3"
-            className="sub-heading"
-          >
-            Current Mint Price <span className="">{(0.1 * numberOfUsers.length).toFixed(1)} ETH</span>
-          </Typography>
+          
         </Grid>
 
         <Grid container >
+        <div className="fourGround-img"> <img src="https://i.ibb.co/bvbWmZR/Register-your-Gamertag.png" alt="Register-your-Gamertag" border="0"/></div>
           <Grid container item
             xs={12}
             lg={12}
@@ -493,6 +492,12 @@ const App = () => {
               item
               lg={5}>
               {/* <div className="card-outer"> */}
+              <Typography
+            variant="h3"
+            className="sub-heading"
+          >
+            Current Mint Price <span className="">{(0.1 * numberOfUsers.length).toFixed(1)} ETH</span>
+          </Typography>
                 <Cards1
                   className="user-card"
                   addressOfUser={userAccount}
